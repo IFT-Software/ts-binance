@@ -1,0 +1,32 @@
+# Node.js specific
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.*.local
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# # Optional: if you're using package-lock or yarn.lock, but don't want to track it
+# package-lock.json
+# yarn.lock
+
+# Build
+build/
+
+# MacOS specific
+.DS_Store
+__MACOSX
+
+# Windows specific
+Thumbs.db

@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "declaration": true, // Generate .d.ts files
+    "outDir": "./build", // Ensure .d.ts files are placed in your build folder
+    "moduleResolution": "Node", // Commonly used resolution strategy
+    "module": "ESNext", // Set this according to your project needs
+    "target": "ESNext", // Adjust as per your target ES version
+    "skipLibCheck": true, // Skip checking of declaration files of libraries
+    "strict": true, // Ensure strict type checking (optional)
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules,
+    "allowSyntheticDefaultImports": true // Allow default imports from modules with no default export
+  },
+  "include": [
+    "src/**/*" // Include your source files
+  ],
+  "exclude": [
+    "node_modules", // Exclude unnecessary files
+    "**/*.test.ts" // Exclude test files if needed
+  ]
+}

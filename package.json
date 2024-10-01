@@ -1,0 +1,38 @@
+{
+  "name": "@iftalgo/ts-binance",
+  "version": "1.0.0",
+  "description": "IFT's fully typed binance client library which has built-in proxy and retry support",
+  "keywords": [
+    "binance",
+    "api",
+    "client",
+    "typescript",
+    "ts",
+    "proxy",
+    "retry"
+  ],
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IFT-Software/ts-binance.git"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "files": [
+    "build"
+  ],
+  "author": "IFT Software",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "hpagent": "^1.2.0",
+    "typescript": "^5.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.11"
+  }
+}
