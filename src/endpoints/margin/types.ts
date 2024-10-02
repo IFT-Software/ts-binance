@@ -358,7 +358,7 @@ type IsolatedMarginAsset = {
   tradeEnabled: boolean;
 };
 
-export type GetIsolatedMarginAcccountInfoResponse = {
+export type GetIsolatedMarginAccountInfoResponse = {
   assets: IsolatedMarginAsset[];
   totalAssetOfBtc?: string; // if symbols are sent
   totalLiabilityOfBtc?: string; // if symbols are sent

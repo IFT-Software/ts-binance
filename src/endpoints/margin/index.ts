@@ -20,6 +20,7 @@ import type {
   GetCrossMarginCollateralRatioResponse,
   GetCrossMarginFeeDataResponse,
   GetCurrentMarginOrderCountResponse,
+  GetIsolatedMarginAccountInfoResponse,
   GetIsolatedMarginAccountLimitResponse,
   GetIsolatedMarginFeeDataResponse,
   GetIsolatedMarginTierDataResponse,
@@ -723,7 +724,7 @@ async function getIsolatedMarginAccountInfo(
   params: GetIsolatedMarginAccountInfoParams,
   authentication: Authentication,
   proxy?: URL | string
-): Promise<GetIsolatedMarginAccountInfoParams> {
+): Promise<GetIsolatedMarginAccountInfoResponse> {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
@@ -733,7 +734,7 @@ async function getIsolatedMarginAccountInfo(
     authentication,
     httpsAgent,
   });
-  return response.data as GetIsolatedMarginAccountInfoParams;
+  return response.data as GetIsolatedMarginAccountInfoResponse;
 }
 
 type DisableIsolatedMarginAccountParams = {
