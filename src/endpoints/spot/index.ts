@@ -3,7 +3,7 @@ import { HttpsProxyAgent } from "hpagent";
 import { binanceApi } from "../../clients/api"; // Import the already created client
 import type { Authentication } from "../../types";
 
-interface TestNewOrderParams {
+type CreateNewTestOrderParams = {
   symbol: string;
   side: string;
   type: string;
@@ -19,21 +19,22 @@ interface TestNewOrderParams {
   icebergQty?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-
+  recvWindow?: number;
+  timestamp?: number;
   computeComissionRates?: boolean;
-}
+};
 
 // Test Create New Order
-async function testCreateNewOrder(
-  params: TestNewOrderParams,
+async function createNewTestOrder(
+  params: CreateNewTestOrderParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/order/test", params, {
     authentication,
@@ -42,7 +43,7 @@ async function testCreateNewOrder(
   return response.data;
 }
 
-interface NewOrderParams {
+type CreateNewOrderParams = {
   symbol: string;
   side: string;
   type: string;
@@ -58,19 +59,21 @@ interface NewOrderParams {
   icebergQty?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Create New Order
 async function createNewOrder(
-  params: NewOrderParams,
+  params: CreateNewOrderParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/order", params, {
     authentication,
@@ -79,15 +82,15 @@ async function createNewOrder(
   return response.data;
 }
 
-interface CancelOrderParams {
+type CancelOrderParams = {
   symbol: string;
   orderId?: string;
   origClientOrderId?: string;
   newClientOrderId?: string;
   cancelRestrictions?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Cancel Order
 async function cancelOrder(
@@ -99,6 +102,8 @@ async function cancelOrder(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.delete("/api/v3/order", {
     params,
     authentication,
@@ -107,11 +112,11 @@ async function cancelOrder(
   return response.data;
 }
 
-interface CancelAllOpenOrdersParams {
+type CancelAllOpenOrdersParams = {
   symbol: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Cancel All Open Orders
 async function cancelAllOpenOrders(
@@ -123,6 +128,8 @@ async function cancelAllOpenOrders(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.delete("/api/v3/openOrders", {
     params,
     authentication,
@@ -131,23 +138,25 @@ async function cancelAllOpenOrders(
   return response.data;
 }
 
-interface QueryOrderParams {
+type GetOrderParams = {
   symbol: string;
   orderId?: string;
   origClientOrderId?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query Order
-async function queryOrder(
-  params: QueryOrderParams,
+// Get Order
+async function getOrder(
+  params: GetOrderParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/order", {
     params,
@@ -157,7 +166,7 @@ async function queryOrder(
   return response.data;
 }
 
-interface CancelReplaceOrderParams {
+type CancelReplaceOrderParams = {
   symbol: string;
   side: string;
   type: string;
@@ -179,9 +188,9 @@ interface CancelReplaceOrderParams {
   selfTradePreventionMode?: string;
   cancelRestrictions?: string;
   orderRateLimitExceededMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Cancel Replace Order
 async function cancelReplaceOrder(
@@ -192,6 +201,8 @@ async function cancelReplaceOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post(
     "/api/v3/order/cancelReplace",
@@ -204,21 +215,23 @@ async function cancelReplaceOrder(
   return response.data;
 }
 
-interface CurrentOpenOrdersParams {
+type GetCurrentOpenOrdersParams = {
   symbol?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Get Current Open Orders
 async function getCurrentOpenOrders(
-  params: CurrentOpenOrdersParams,
+  params: GetCurrentOpenOrdersParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/openOrders", {
     params,
@@ -228,25 +241,27 @@ async function getCurrentOpenOrders(
   return response.data;
 }
 
-interface AllOrdersParams {
+type GetAllOrdersParams = {
   symbol: string;
   orderId?: string;
   startTime?: string;
   endTime?: string;
   limit?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Get All Orders
 async function getAllOrders(
-  params: AllOrdersParams,
+  params: GetAllOrdersParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/allOrders", {
     params,
@@ -256,7 +271,7 @@ async function getAllOrders(
   return response.data;
 }
 
-interface NewOcoOrderParams {
+type CreateNewOcoOrderParams = {
   symbol: string;
   listClientOrderId?: string;
   side: string;
@@ -276,19 +291,21 @@ interface NewOcoOrderParams {
   stopLimitTimeInForce?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp: number;
+};
 
 // Create New OCO
 async function createNewOcoOrder(
-  params: NewOcoOrderParams,
+  params: CreateNewOcoOrderParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/order/oco", params, {
     authentication,
@@ -297,7 +314,7 @@ async function createNewOcoOrder(
   return response.data;
 }
 
-interface NewOcoOrderListParams {
+type CreateNewOcoOrderListParams = {
   symbol: string;
   listClientOrderId?: string;
   side: string;
@@ -322,19 +339,21 @@ interface NewOcoOrderListParams {
   belowStrategyType?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Create New OCO List
 async function createNewOcoOrderList(
-  params: NewOcoOrderListParams,
+  params: CreateNewOcoOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/orderList/oco", params, {
     authentication,
@@ -343,7 +362,7 @@ async function createNewOcoOrderList(
   return response.data;
 }
 
-interface NewOtoOrderListParams {
+type CreateNewOtoOrderListParams = {
   symbol: string;
   listClientOrderId?: string;
   newOrderRespType?: string;
@@ -366,19 +385,21 @@ interface NewOtoOrderListParams {
   pendingTimeInForce?: string;
   pendingStrategyId?: string;
   pendingStrategyType?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Create New OTO List
 async function createNewOtoOrderList(
-  params: NewOtoOrderListParams,
+  params: CreateNewOtoOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/orderList/oto", params, {
     authentication,
@@ -387,7 +408,7 @@ async function createNewOtoOrderList(
   return response.data;
 }
 
-interface NewOtocoOrderListParams {
+type CreateNewOtocoOrderListParams = {
   symbol: string;
   listClientOrderId?: string;
   newOrderRespType?: string;
@@ -424,19 +445,21 @@ interface NewOtocoOrderListParams {
   pendingBelowTimeInForce?: string;
   pendingBelowStrategyId?: string;
   pendingBelowStrategyType?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Create New OTOCO List
 async function createNewOtocoOrderList(
-  params: NewOtocoOrderListParams,
+  params: CreateNewOtocoOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/orderList/otoco", params, {
     authentication,
@@ -445,14 +468,14 @@ async function createNewOtocoOrderList(
   return response.data;
 }
 
-interface CancelOrderListParams {
+type CancelOrderListParams = {
   symbol: string;
   orderListId?: string;
   listClientOrderId?: string;
   newClientOrderId?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Cancel Order List
 async function cancelOrderList(
@@ -464,6 +487,8 @@ async function cancelOrderList(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.delete("/api/v3/orderList", {
     params,
     authentication,
@@ -472,22 +497,24 @@ async function cancelOrderList(
   return response.data;
 }
 
-interface QueryOrderListParams {
+type GetOrderListParams = {
   orderListId?: string;
   origClientOrderId?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query Order List
-async function queryOrderList(
-  params: QueryOrderListParams,
+// Get Order List
+async function getOrderList(
+  params: GetOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/orderList", {
     params,
@@ -497,24 +524,26 @@ async function queryOrderList(
   return response.data;
 }
 
-interface QueryAllOrderListParams {
+type GetAllOrderListParams = {
   fromId?: string;
   startTime?: string;
   endTime?: string;
   limit?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query All Order List
-async function queryAllOrderList(
-  params: QueryAllOrderListParams,
+// Get All Order List
+async function getAllOrderList(
+  params: GetAllOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/allOrderList", {
     params,
@@ -524,20 +553,22 @@ async function queryAllOrderList(
   return response.data;
 }
 
-interface QueryOpenOrderListParams {
-  recvWindow?: string;
-  timestamp: string;
-}
+type GetOpenOrderListParams = {
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query Open Order List
-async function queryOpenOrderList(
-  params: QueryOpenOrderListParams,
+// Get Open Order List
+async function getOpenOrderList(
+  params: GetOpenOrderListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/openOrderList", {
     params,
@@ -547,7 +578,7 @@ async function queryOpenOrderList(
   return response.data;
 }
 
-interface NewOrderSorParams {
+type CreateNewOrderSorParams = {
   symbol: string;
   side: string;
   type: string;
@@ -561,19 +592,21 @@ interface NewOrderSorParams {
   icebergQty?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Create New Order - SOR
 async function createNewOrderSor(
-  params: NewOrderSorParams,
+  params: CreateNewOrderSorParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/api/v3/sor/order", params, {
     authentication,
@@ -582,7 +615,7 @@ async function createNewOrderSor(
   return response.data;
 }
 
-interface TestNewOrderSorParams {
+type TestNewOrderSorParams = {
   symbol: string;
   side: string;
   type: string;
@@ -596,11 +629,11 @@ interface TestNewOrderSorParams {
   icebergQty?: string;
   newOrderRespType?: string;
   selfTradePreventionMode?: string;
-  recvWindow?: string;
-  timestamp: string;
+  recvWindow?: number;
+  timestamp?: number;
 
   computeComissionRates?: boolean;
-}
+};
 
 // Test Create New Order - SOR
 async function testCreateNewOrderSor(
@@ -612,6 +645,8 @@ async function testCreateNewOrderSor(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.post("/api/v3/sor/order/test", params, {
     authentication,
     httpsAgent,
@@ -619,21 +654,23 @@ async function testCreateNewOrderSor(
   return response.data;
 }
 
-interface AccountInformationParams {
+type GetAccountInformationParams = {
   omitZeroBalances?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Get Account Information
 async function getAccountInformation(
-  params: AccountInformationParams,
+  params: GetAccountInformationParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/account", {
     params,
@@ -643,26 +680,28 @@ async function getAccountInformation(
   return response.data;
 }
 
-interface AccountTradeListParams {
+type GetAccountTradeListParams = {
   symbol: string;
   orderId?: string;
   startTime?: string;
   endTime?: string;
   fromId?: string;
   limit?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
 // Get Account Trade List
 async function getAccountTradeList(
-  params: AccountTradeListParams,
+  params: GetAccountTradeListParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/myTrades", {
     params,
@@ -672,20 +711,22 @@ async function getAccountTradeList(
   return response.data;
 }
 
-interface QueryUnfilledOrderCountParams {
-  recvWindow?: string;
-  timestamp: string;
+interface GetUnfilledOrderCountParams {
+  recvWindow?: number;
+  timestamp?: number;
 }
 
-// Query Unfilled Order Count
-async function queryUnfilledOrderCount(
-  params: QueryUnfilledOrderCountParams,
+// Get Unfilled Order Count
+async function getUnfilledOrderCount(
+  params: GetUnfilledOrderCountParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/rateLimit/order", {
     params,
@@ -695,25 +736,27 @@ async function queryUnfilledOrderCount(
   return response.data;
 }
 
-interface QueryPreventedMatchesParams {
+type GetPreventedMatchesParams = {
   symbol: string;
   preventedMatchId?: string;
   orderId?: string;
   fromPreventedMatchId?: string;
   limit?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query Prevented Matches
-async function queryPreventedMatches(
-  params: QueryPreventedMatchesParams,
+// Get Prevented Matches
+async function getPreventedMatches(
+  params: GetPreventedMatchesParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/myPreventedMatches", {
     params,
@@ -723,26 +766,28 @@ async function queryPreventedMatches(
   return response.data;
 }
 
-interface QueryAllocationsParams {
+type GetAllocationsParams = {
   symbol: string;
   startTime?: string;
   endTime?: string;
   fromAllocationId?: string;
   limit?: string;
   orderId?: string;
-  recvWindow?: string;
-  timestamp: string;
-}
+  recvWindow?: number;
+  timestamp?: number;
+};
 
-// Query Allocations
-async function queryAllocations(
-  params: QueryAllocationsParams,
+// Get Allocations
+async function getAllocations(
+  params: GetAllocationsParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/api/v3/myAllocations", {
     params,
@@ -752,13 +797,13 @@ async function queryAllocations(
   return response.data;
 }
 
-interface QueryComissionRatesParams {
+type GetComissionRatesParams = {
   symbol: string;
-}
+};
 
-// Query Comission Rates
-async function queryComissionRates(
-  params: QueryComissionRatesParams,
+// Get Comission Rates
+async function getComissionRates(
+  params: GetComissionRatesParams,
   authentication: Authentication,
   proxy?: URL | string
 ) {
@@ -775,11 +820,11 @@ async function queryComissionRates(
 }
 
 const spot = {
-  testCreateNewOrder,
+  createNewTestOrder,
   createNewOrder,
   cancelOrder,
   cancelAllOpenOrders,
-  queryOrder,
+  getOrder,
   cancelReplaceOrder,
   getCurrentOpenOrders,
   getAllOrders,
@@ -788,44 +833,44 @@ const spot = {
   createNewOtoOrderList,
   createNewOtocoOrderList,
   cancelOrderList,
-  queryOrderList,
-  queryAllOrderList,
-  queryOpenOrderList,
+  getOrderList,
+  getAllOrderList,
+  getOpenOrderList,
   createNewOrderSor,
   testCreateNewOrderSor,
   getAccountInformation,
   getAccountTradeList,
-  queryUnfilledOrderCount,
-  queryPreventedMatches,
-  queryAllocations,
-  queryComissionRates,
+  getUnfilledOrderCount,
+  getPreventedMatches,
+  getAllocations,
+  getComissionRates,
 };
 
 export { spot };
 
 export type {
-  TestNewOrderParams,
-  NewOrderParams,
+  CreateNewTestOrderParams,
+  CreateNewOrderParams,
   CancelOrderParams,
   CancelAllOpenOrdersParams,
-  QueryOrderParams,
+  GetOrderParams,
   CancelReplaceOrderParams,
-  CurrentOpenOrdersParams,
-  AllOrdersParams,
-  NewOcoOrderParams,
-  NewOcoOrderListParams,
-  NewOtoOrderListParams,
-  NewOtocoOrderListParams,
+  GetCurrentOpenOrdersParams,
+  GetAllOrdersParams,
+  CreateNewOcoOrderParams,
+  CreateNewOcoOrderListParams,
+  CreateNewOtoOrderListParams,
+  CreateNewOtocoOrderListParams,
   CancelOrderListParams,
-  QueryOrderListParams,
-  QueryAllOrderListParams,
-  QueryOpenOrderListParams,
-  NewOrderSorParams,
+  GetOrderListParams,
+  GetAllOrderListParams,
+  GetOpenOrderListParams,
+  CreateNewOrderSorParams,
   TestNewOrderSorParams,
-  AccountInformationParams,
-  AccountTradeListParams,
-  QueryUnfilledOrderCountParams,
-  QueryPreventedMatchesParams,
-  QueryAllocationsParams,
-  QueryComissionRatesParams,
+  GetAccountInformationParams,
+  GetAccountTradeListParams,
+  GetUnfilledOrderCountParams,
+  GetPreventedMatchesParams,
+  GetAllocationsParams,
+  GetComissionRatesParams,
 };

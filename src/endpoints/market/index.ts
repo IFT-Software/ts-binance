@@ -24,15 +24,15 @@ async function checkServerTime(proxy?: URL | string) {
   return response.data;
 }
 
-interface ExchangeInfoParams {
+type GetExchangeInfoParams = {
   symbol?: string;
   symbols?: Array<string>;
   permissions?: Array<string>;
-}
+};
 
 // Get Exchange Information
 async function getExchangeInfo(
-  params?: ExchangeInfoParams,
+  params?: GetExchangeInfoParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -46,13 +46,13 @@ async function getExchangeInfo(
   return response.data;
 }
 
-interface OrderBookParams {
+type GetOrderBookParams = {
   symbol: string;
   limit?: number;
-}
+};
 
 // Get Order Book
-async function getOrderBook(params: OrderBookParams, proxy?: URL | string) {
+async function getOrderBook(params: GetOrderBookParams, proxy?: URL | string) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
@@ -64,14 +64,14 @@ async function getOrderBook(params: OrderBookParams, proxy?: URL | string) {
   return response.data;
 }
 
-interface RecentTradesParams {
+type GetRecentTradesParams = {
   symbol: string;
   limit?: number;
-}
+};
 
 // Get Recent Trades
 async function getRecentTrades(
-  params: RecentTradesParams,
+  params: GetRecentTradesParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -85,15 +85,15 @@ async function getRecentTrades(
   return response.data;
 }
 
-interface HistoricalTradesParams {
+type GetHistoricalTradesParams = {
   symbol: string;
   limit?: number;
   fromId?: number;
-}
+};
 
 // Get Historical Trades
 async function getHistoricalTrades(
-  params: HistoricalTradesParams,
+  params: GetHistoricalTradesParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -107,17 +107,17 @@ async function getHistoricalTrades(
   return response.data;
 }
 
-interface AggregateTradesParams {
+type GetAggregateTradesParams = {
   symbol: string;
   fromId?: number;
   startTime?: number;
   endTime?: number;
   limit?: number;
-}
+};
 
 // Get Aggregate Trades
 async function getAggregateTrades(
-  params: AggregateTradesParams,
+  params: GetAggregateTradesParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -131,16 +131,16 @@ async function getAggregateTrades(
   return response.data;
 }
 
-interface KlineParams {
+type GetKlinesParams = {
   symbol: string;
   interval: string;
   startTime?: number;
   endTime?: number;
   limit?: number;
-}
+};
 
 // Get Kline/Candlestick Data
-async function getKlines(params: KlineParams, proxy?: URL | string) {
+async function getKlines(params: GetKlinesParams, proxy?: URL | string) {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
@@ -152,17 +152,17 @@ async function getKlines(params: KlineParams, proxy?: URL | string) {
   return response.data;
 }
 
-interface UIKlinesParams {
+type GetUIKlinesParams = {
   symbol: string;
   interval: string;
   startTime?: number;
   endTime?: number;
   timeZone?: string;
   limit?: number;
-}
+};
 
 // Get Kline/Candlestick Data (UI)
-async function getUIKlines(params: UIKlinesParams, proxy?: URL | string) {
+async function getUIKlines(params: GetUIKlinesParams, proxy?: URL | string) {
   const httpsAgent = proxy ? new HttpsProxyAgent({ proxy }) : undefined;
 
   const response = await binanceApi.get("/api/v3/uiKlines", {
@@ -172,13 +172,13 @@ async function getUIKlines(params: UIKlinesParams, proxy?: URL | string) {
   return response.data;
 }
 
-interface CurrentAveragePriceParams {
+type GetCurrentAveragePriceParams = {
   symbol: string;
-}
+};
 
 // Get Current Average Price
 async function getCurrentAveragePrice(
-  params: CurrentAveragePriceParams,
+  params: GetCurrentAveragePriceParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -192,13 +192,13 @@ async function getCurrentAveragePrice(
   return response.data;
 }
 
-interface PriceChangeStatsParams {
+type GetPriceChangeStatsParams = {
   symbol?: string;
-}
+};
 
 // Get 24hr Price Change Statistics
 async function getPriceChangeStats(
-  params?: PriceChangeStatsParams,
+  params?: GetPriceChangeStatsParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -212,21 +212,25 @@ async function getPriceChangeStats(
   return response.data;
 }
 
-interface TradingDayTickerParamsSymbol {
+type TradingDayTickerParamsSymbol = {
   symbol: string;
   timeZone?: string;
   type?: string;
-}
+};
 
-interface TradingDayTickerParamsSymbols {
+type TradingDayTickerParamsSymbols = {
   symbols: Array<string>;
   timeZone?: string;
   type?: string;
-}
+};
+
+type GetTradingDayTickerParams =
+  | TradingDayTickerParamsSymbol
+  | TradingDayTickerParamsSymbols;
 
 // Get Trading Day Ticker
 async function getTradingDayTicker(
-  params: TradingDayTickerParamsSymbol | TradingDayTickerParamsSymbols,
+  params: GetTradingDayTickerParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -240,14 +244,14 @@ async function getTradingDayTicker(
   return response.data;
 }
 
-interface SymbolPriceTickerParams {
+type GetSymbolPriceTickerParams = {
   symbol?: string;
   symbols?: Array<string>;
-}
+};
 
 // Get Symbol Price Ticker
 async function getSymbolPriceTicker(
-  params?: SymbolPriceTickerParams,
+  params?: GetSymbolPriceTickerParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -261,14 +265,14 @@ async function getSymbolPriceTicker(
   return response.data;
 }
 
-interface SymbolOrderBookTickerParams {
+type GetSymbolOrderBookTickerParams = {
   symbol?: string;
   symbols?: Array<string>;
-}
+};
 
 // Get Symbol Order Book Ticker
 async function getSymbolOrderBookTicker(
-  params?: SymbolOrderBookTickerParams,
+  params?: GetSymbolOrderBookTickerParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -282,23 +286,25 @@ async function getSymbolOrderBookTicker(
   return response.data;
 }
 
-interface RollingWindowPriceChangeStatsParamsSymbol {
+type RollingWindowPriceChangeStatsParamsSymbol = {
   symbol: string;
   windowSize?: string; // TODO: this is an enum in the API docs
   type?: string; // TODO: this is an enum in the API docs
-}
+};
 
-interface RollingWindowPriceChangeStatsParamsSymbols {
+type RollingWindowPriceChangeStatsParamsSymbols = {
   symbols: Array<string>;
   windowSize?: string; // TODO: this is an enum in the API docs
   type?: string; // TODO: this is an enum in the API docs
-}
+};
+
+type GetRollingWindowPriceChangeStatsParams =
+  | RollingWindowPriceChangeStatsParamsSymbol
+  | RollingWindowPriceChangeStatsParamsSymbols;
 
 // Get Rolling Window Price Change Statistics
 async function getRollingWindowPriceChangeStats(
-  params:
-    | RollingWindowPriceChangeStatsParamsSymbol
-    | RollingWindowPriceChangeStatsParamsSymbols,
+  params: GetRollingWindowPriceChangeStatsParams,
   proxy?: URL | string
 ) {
   const httpsAgent = proxy
@@ -333,19 +339,17 @@ const market = {
 export { market };
 
 export type {
-  ExchangeInfoParams,
-  OrderBookParams,
-  RecentTradesParams,
-  HistoricalTradesParams,
-  AggregateTradesParams,
-  KlineParams,
-  UIKlinesParams,
-  CurrentAveragePriceParams,
-  PriceChangeStatsParams,
-  TradingDayTickerParamsSymbol,
-  TradingDayTickerParamsSymbols,
-  SymbolPriceTickerParams,
-  SymbolOrderBookTickerParams,
-  RollingWindowPriceChangeStatsParamsSymbol,
-  RollingWindowPriceChangeStatsParamsSymbols,
+  GetExchangeInfoParams,
+  GetOrderBookParams,
+  GetRecentTradesParams,
+  GetHistoricalTradesParams,
+  GetAggregateTradesParams,
+  GetKlinesParams,
+  GetUIKlinesParams,
+  GetCurrentAveragePriceParams,
+  GetPriceChangeStatsParams,
+  GetTradingDayTickerParams,
+  GetSymbolPriceTickerParams,
+  GetSymbolOrderBookTickerParams,
+  GetRollingWindowPriceChangeStatsParams,
 };

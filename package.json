@@ -1,6 +1,6 @@
 {
   "name": "@iftalgo/ts-binance",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "IFT's fully typed binance client library which has built-in proxy and retry support",
   "keywords": [
     "binance",
