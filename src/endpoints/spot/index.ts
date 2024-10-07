@@ -2,6 +2,18 @@ import { HttpsProxyAgent } from "hpagent";
 
 import { binanceApi } from "../../clients/api"; // Import the already created client
 import type { Authentication } from "../../types";
+import {
+  CancelAllOpenOrdersResponse,
+  CancelOrderResponse,
+  CancelReplaceOrderResponse,
+  CreateNewOcoOrderListResponse,
+  CreateNewOcoOrderResponse,
+  CreateNewOrderResponse,
+  CreateNewTestOrderResponse,
+  GetAllOrdersResponse,
+  GetCurrentOpenOrdersResponse,
+  GetOrderResponse,
+} from "./types";
 
 type CreateNewTestOrderParams = {
   symbol: string;
@@ -40,7 +52,7 @@ async function createNewTestOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewTestOrderResponse;
 }
 
 type CreateNewOrderParams = {
@@ -79,7 +91,7 @@ async function createNewOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOrderResponse;
 }
 
 type CancelOrderParams = {
@@ -109,7 +121,7 @@ async function cancelOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CancelOrderResponse;
 }
 
 type CancelAllOpenOrdersParams = {
@@ -135,7 +147,7 @@ async function cancelAllOpenOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CancelAllOpenOrdersResponse;
 }
 
 type GetOrderParams = {
@@ -163,7 +175,7 @@ async function getOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetOrderResponse;
 }
 
 type CancelReplaceOrderParams = {
@@ -212,7 +224,7 @@ async function cancelReplaceOrder(
       httpsAgent,
     }
   );
-  return response.data;
+  return response.data as CancelReplaceOrderResponse;
 }
 
 type GetCurrentOpenOrdersParams = {
@@ -238,7 +250,7 @@ async function getCurrentOpenOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetCurrentOpenOrdersResponse;
 }
 
 type GetAllOrdersParams = {
@@ -268,7 +280,7 @@ async function getAllOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAllOrdersResponse;
 }
 
 type CreateNewOcoOrderParams = {
@@ -311,7 +323,7 @@ async function createNewOcoOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOcoOrderResponse;
 }
 
 type CreateNewOcoOrderListParams = {
@@ -359,7 +371,7 @@ async function createNewOcoOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOcoOrderListResponse;
 }
 
 type CreateNewOtoOrderListParams = {
