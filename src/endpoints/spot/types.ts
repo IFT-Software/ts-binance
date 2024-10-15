@@ -74,12 +74,7 @@ export type CancelOrderResponse = {
   selfTradePreventionMode: string;
 };
 
-type OrderReport = CancelOrderResponse & {
-  stopPrice?: string; // Optional, only present in STOP_LOSS_LIMIT orders
-  icebergQty: string; // TODO: make sure this is not optional
-};
-
-type CancelOrderListResponse = {
+type OrderListData = {
   orderListId: number;
   contingencyType: string;
   listStatusType: string;
@@ -92,11 +87,19 @@ type CancelOrderListResponse = {
     orderId: number;
     clientOrderId: string;
   }>;
-  orderReports: OrderReport[];
+};
+
+type OpenOrderReport = CancelOrderResponse & {
+  stopPrice?: string; // Optional, only present in STOP_LOSS_LIMIT orders
+  icebergQty: string; // TODO: make sure this is not optional
+};
+
+type CancelOpenOrderListResponse = OrderListData & {
+  orderReports: OpenOrderReport[];
 };
 
 export type CancelAllOpenOrdersResponse = Array<
-  CancelOrderResponse | CancelOrderListResponse
+  CancelOrderResponse | CancelOpenOrderListResponse
 >;
 
 export type GetOrderResponse = {
@@ -151,36 +154,160 @@ export type GetCurrentOpenOrdersResponse = Array<GetOrderResponse>;
 
 export type GetAllOrdersResponse = Array<GetOrderResponse>;
 
-type OcoOrderReport = CreateNewOrderResultResponse & { stopPrice?: string };
+type OrderReport = CreateNewOrderResultResponse & { stopPrice?: string };
 
-export type CreateNewOcoOrderResponse = {
-  orderListId: number;
-  contingencyType: string;
-  listStatusType: string;
-  listOrderStatus: string;
-  listClientOrderId: string;
-  transactionTime: number;
-  symbol: string;
-  orders: Array<{
-    symbol: string;
-    orderId: number;
-    clientOrderId: string;
-  }>;
-  orderReports: OcoOrderReport[];
+export type CreateNewOcoOrderResponse = OrderListData & {
+  orderReports: OrderReport[];
 };
 
-export type CreateNewOcoOrderListResponse = {
-  orderListId: number;
-  contingencyType: string;
-  listStatusType: string;
-  listOrderStatus: string;
-  listClientOrderId: string;
-  transactionTime: number;
+type CreateNewOrderListResponse = OrderListData & {
+  orderReports: (OrderReport & { iceberQty?: string })[];
+};
+
+export type CreateNewOcoOrderListResponse = CreateNewOrderListResponse;
+
+export type CreateNewOtoOrderListResponse = CreateNewOrderListResponse;
+
+export type CreateNewOtoocoOrderListResponse = CreateNewOrderListResponse;
+
+type CancelOrderReport = CancelOrderResponse & { stopPrice?: string };
+
+export type CancelOrderListResponse = OrderListData & {
+  orderReports: CancelOrderReport[];
+};
+
+export type GetOrderListResponse = OrderListData;
+
+export type GetAllOrderListResponse = Array<OrderListData>;
+
+export type GetOpenOrderListResponse = Array<OrderListData>;
+
+type SorFill = {
+  matchType: string;
+  price: string;
+  qty: string;
+  commission: string;
+  commissionAsset: string;
+  tradeId: number;
+  allocId: number;
+};
+
+export type CreateNewOrderSorResponse = {
   symbol: string;
-  orders: Array<{
-    symbol: string;
-    orderId: number;
-    clientOrderId: string;
-  }>;
-  orderReports: (OcoOrderReport & { iceberQty?: string })[];
+  orderId: number;
+  orderListId: number;
+  clientOrderId: string;
+  transactTime: number;
+  price: string;
+  origQty: string;
+  executedQty: string;
+  cummulativeQuoteQty: string;
+  status: string;
+  timeInForce: string;
+  type: string;
+  side: string;
+  workingTime: number;
+  fills: SorFill[];
+  workingFloor: string;
+  selfTradePreventionMode: string;
+  usedSor: boolean;
+};
+
+export type TestCreateNewOrderSorResponse = CreateNewTestOrderResponse;
+
+type CommissionRates = {
+  maker: string;
+  taker: string;
+  buyer: string;
+  seller: string;
+};
+
+type Balance = {
+  asset: string;
+  free: string;
+  locked: string;
+};
+
+export type GetAccountInformationResponse = {
+  makerCommission: number;
+  takerCommission: number;
+  buyerCommission: number;
+  sellerCommission: number;
+  commissionRates: CommissionRates;
+  canTrade: boolean;
+  canWithdraw: boolean;
+  canDeposit: boolean;
+  brokered: boolean;
+  requireSelfTradePrevention: boolean;
+  preventSor: boolean;
+  updateTime: number;
+  accountType: string;
+  balances: Balance[];
+  permissions: string[];
+  uid: number;
+};
+
+export type GetAccountTradeListResponse = {
+  symbol: string;
+  id: number;
+  orderId: number;
+  orderListId: number; // -1 if not an order list
+  price: string;
+  qty: string;
+  quoteQty: string;
+  commission: string;
+  commissionAsset: string;
+  time: number;
+  isBuyer: boolean;
+  isMaker: boolean;
+  isBestMatch: boolean;
+}[];
+
+export type GetUnfilledOrderCountResponse = {
+  rateLimitType: string;
+  interval: string;
+  intervalNum: number;
+  limit: number;
+  count: number;
+}[];
+
+export type GetPreventedMatchesResponse = {
+  symbol: string;
+  preventedMatchId: number;
+  takerOrderId: number;
+  makerOrderId: number;
+  tradeGroupId: number;
+  selfTradePreventionMode: string;
+  price: string;
+  makerPreventedQuantity: string;
+  transactTime: number;
+}[];
+
+export type GetAllocationsResponse = {
+  symbol: string;
+  allocationId: number;
+  allocationType: string;
+  orderId: number;
+  orderListId: number;
+  price: string;
+  qty: string;
+  quoteQty: string;
+  commission: string;
+  commissionAsset: string;
+  time: number;
+  isBuyer: boolean;
+  isMaker: boolean;
+  isAllocator: boolean;
+}[];
+
+export type GetComissionRatesResponse = {
+  symbol: string;
+  standardCommission: CommissionRates;
+  taxCommission: CommissionRates;
+  discount: {
+    enabledForAccount: boolean;
+    enabledForSymbol: boolean;
+    discountAsset: string;
+    discount: string;
+  };
 };
