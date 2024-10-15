@@ -70,10 +70,6 @@ binanceApi.interceptors.request.use(
         const { apiKey, secretKey, privateKey } = config.authentication;
 
         if (apiKey) {
-          const timestamp = config.params.timestamp || Date.now();
-          config.url! +=
-            (config.url!.includes("?") ? "&" : "?") + `timestamp=${timestamp}`;
-
           // Generate the full query string including the timestamp
           const fullQueryString = config.url!.split("?")[1] || "";
           let signature: string;

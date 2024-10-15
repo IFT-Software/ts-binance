@@ -681,7 +681,7 @@ async function testCreateNewOrderSor(
 }
 
 type GetAccountInformationParams = {
-  omitZeroBalances?: string;
+  omitZeroBalances?: boolean;
   recvWindow?: number;
   timestamp?: number;
 };
