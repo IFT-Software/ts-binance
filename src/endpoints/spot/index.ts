@@ -2,6 +2,32 @@ import { HttpsProxyAgent } from "hpagent";
 
 import { binanceApi } from "../../clients/api"; // Import the already created client
 import type { Authentication } from "../../types";
+import {
+  CancelAllOpenOrdersResponse,
+  CancelOrderListResponse,
+  CancelOrderResponse,
+  CancelReplaceOrderResponse,
+  CreateNewOcoOrderListResponse,
+  CreateNewOcoOrderResponse,
+  CreateNewOrderResponse,
+  CreateNewOrderSorResponse,
+  CreateNewOtoocoOrderListResponse,
+  CreateNewOtoOrderListResponse,
+  CreateNewTestOrderResponse,
+  GetAccountInformationResponse,
+  GetAccountTradeListResponse,
+  GetAllocationsResponse,
+  GetAllOrderListResponse,
+  GetAllOrdersResponse,
+  GetComissionRatesResponse,
+  GetCurrentOpenOrdersResponse,
+  GetOpenOrderListResponse,
+  GetOrderListResponse,
+  GetOrderResponse,
+  GetPreventedMatchesResponse,
+  GetUnfilledOrderCountResponse,
+  TestCreateNewOrderSorResponse,
+} from "./types";
 
 type CreateNewTestOrderParams = {
   symbol: string;
@@ -40,7 +66,7 @@ async function createNewTestOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewTestOrderResponse;
 }
 
 type CreateNewOrderParams = {
@@ -79,7 +105,7 @@ async function createNewOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOrderResponse;
 }
 
 type CancelOrderParams = {
@@ -109,7 +135,7 @@ async function cancelOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CancelOrderResponse;
 }
 
 type CancelAllOpenOrdersParams = {
@@ -135,7 +161,7 @@ async function cancelAllOpenOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CancelAllOpenOrdersResponse;
 }
 
 type GetOrderParams = {
@@ -163,7 +189,7 @@ async function getOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetOrderResponse;
 }
 
 type CancelReplaceOrderParams = {
@@ -212,7 +238,7 @@ async function cancelReplaceOrder(
       httpsAgent,
     }
   );
-  return response.data;
+  return response.data as CancelReplaceOrderResponse;
 }
 
 type GetCurrentOpenOrdersParams = {
@@ -238,7 +264,7 @@ async function getCurrentOpenOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetCurrentOpenOrdersResponse;
 }
 
 type GetAllOrdersParams = {
@@ -268,7 +294,7 @@ async function getAllOrders(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAllOrdersResponse;
 }
 
 type CreateNewOcoOrderParams = {
@@ -311,7 +337,7 @@ async function createNewOcoOrder(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOcoOrderResponse;
 }
 
 type CreateNewOcoOrderListParams = {
@@ -359,7 +385,7 @@ async function createNewOcoOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOcoOrderListResponse;
 }
 
 type CreateNewOtoOrderListParams = {
@@ -405,7 +431,7 @@ async function createNewOtoOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOtoOrderListResponse;
 }
 
 type CreateNewOtocoOrderListParams = {
@@ -465,7 +491,7 @@ async function createNewOtocoOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOtoocoOrderListResponse;
 }
 
 type CancelOrderListParams = {
@@ -494,7 +520,7 @@ async function cancelOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CancelOrderListResponse;
 }
 
 type GetOrderListParams = {
@@ -521,7 +547,7 @@ async function getOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetOrderListResponse;
 }
 
 type GetAllOrderListParams = {
@@ -550,7 +576,7 @@ async function getAllOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAllOrderListResponse;
 }
 
 type GetOpenOrderListParams = {
@@ -575,7 +601,7 @@ async function getOpenOrderList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetOpenOrderListResponse;
 }
 
 type CreateNewOrderSorParams = {
@@ -612,7 +638,7 @@ async function createNewOrderSor(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as CreateNewOrderSorResponse;
 }
 
 type TestNewOrderSorParams = {
@@ -651,7 +677,7 @@ async function testCreateNewOrderSor(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as TestCreateNewOrderSorResponse;
 }
 
 type GetAccountInformationParams = {
@@ -677,7 +703,7 @@ async function getAccountInformation(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAccountInformationResponse;
 }
 
 type GetAccountTradeListParams = {
@@ -708,13 +734,13 @@ async function getAccountTradeList(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAccountTradeListResponse;
 }
 
-interface GetUnfilledOrderCountParams {
+type GetUnfilledOrderCountParams = {
   recvWindow?: number;
   timestamp?: number;
-}
+};
 
 // Get Unfilled Order Count
 async function getUnfilledOrderCount(
@@ -733,7 +759,7 @@ async function getUnfilledOrderCount(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetUnfilledOrderCountResponse;
 }
 
 type GetPreventedMatchesParams = {
@@ -763,7 +789,7 @@ async function getPreventedMatches(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetPreventedMatchesResponse;
 }
 
 type GetAllocationsParams = {
@@ -794,7 +820,7 @@ async function getAllocations(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAllocationsResponse;
 }
 
 type GetComissionRatesParams = {
@@ -816,7 +842,7 @@ async function getComissionRates(
     authentication,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetComissionRatesResponse;
 }
 
 const spot = {

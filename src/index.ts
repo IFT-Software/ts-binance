@@ -128,6 +128,8 @@ import { spot } from "./endpoints/spot";
 import { margin } from "./endpoints/margin";
 import { wallet } from "./endpoints/wallet";
 
+import { BinanceError } from "./errors";
+
 const binance = {
   market,
   spot,
@@ -137,6 +139,8 @@ const binance = {
 
 // Comment to trigger action
 export default binance;
+
+export { BinanceError };
 
 export type { Authentication };
 

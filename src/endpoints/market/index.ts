@@ -1,6 +1,20 @@
 import { HttpsProxyAgent } from "hpagent";
 
 import { binanceApi } from "../../clients/api"; // Import the already created client
+import {
+  CheckServerTimeResponse,
+  GetExchangeInfoResponse,
+  GetTradesResponse,
+  GetOrderBookResponse,
+  GetAggregateTradesResponse,
+  GetKlinesResponse,
+  GetCurrentAveragePriceResponse,
+  GetPriceChangeStatsResponse,
+  GetTradingDayTickerResponse,
+  GetSymbolPriceTickerResponse,
+  GetSymbolOrderBookTickerResponse,
+  GetRollingWindowPriceChangeStatsResponse,
+} from "./types";
 
 async function testConnectivity(proxy?: URL | string) {
   const httpsAgent = proxy
@@ -10,7 +24,7 @@ async function testConnectivity(proxy?: URL | string) {
   const response = await binanceApi.get("/api/v3/ping", {
     httpsAgent,
   });
-  return response.data;
+  return response.data as {};
 }
 
 async function checkServerTime(proxy?: URL | string) {
@@ -21,7 +35,7 @@ async function checkServerTime(proxy?: URL | string) {
   const response = await binanceApi.get("/api/v3/time", {
     httpsAgent,
   });
-  return response.data;
+  return response.data as CheckServerTimeResponse;
 }
 
 type GetExchangeInfoParams = {
@@ -43,7 +57,7 @@ async function getExchangeInfo(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetExchangeInfoResponse;
 }
 
 type GetOrderBookParams = {
@@ -61,7 +75,7 @@ async function getOrderBook(params: GetOrderBookParams, proxy?: URL | string) {
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetOrderBookResponse;
 }
 
 type GetRecentTradesParams = {
@@ -82,7 +96,7 @@ async function getRecentTrades(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetTradesResponse;
 }
 
 type GetHistoricalTradesParams = {
@@ -104,7 +118,7 @@ async function getHistoricalTrades(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetTradesResponse;
 }
 
 type GetAggregateTradesParams = {
@@ -128,7 +142,7 @@ async function getAggregateTrades(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetAggregateTradesResponse;
 }
 
 type GetKlinesParams = {
@@ -149,7 +163,7 @@ async function getKlines(params: GetKlinesParams, proxy?: URL | string) {
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetKlinesResponse;
 }
 
 type GetUIKlinesParams = {
@@ -169,7 +183,7 @@ async function getUIKlines(params: GetUIKlinesParams, proxy?: URL | string) {
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetKlinesResponse;
 }
 
 type GetCurrentAveragePriceParams = {
@@ -189,7 +203,7 @@ async function getCurrentAveragePrice(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetCurrentAveragePriceResponse;
 }
 
 type GetPriceChangeStatsParams = {
@@ -209,7 +223,7 @@ async function getPriceChangeStats(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetPriceChangeStatsResponse;
 }
 
 type TradingDayTickerParamsSymbol = {
@@ -241,7 +255,7 @@ async function getTradingDayTicker(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetTradingDayTickerResponse;
 }
 
 type GetSymbolPriceTickerParams = {
@@ -262,7 +276,7 @@ async function getSymbolPriceTicker(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetSymbolPriceTickerResponse;
 }
 
 type GetSymbolOrderBookTickerParams = {
@@ -283,7 +297,7 @@ async function getSymbolOrderBookTicker(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetSymbolOrderBookTickerResponse;
 }
 
 type RollingWindowPriceChangeStatsParamsSymbol = {
@@ -315,7 +329,7 @@ async function getRollingWindowPriceChangeStats(
     params,
     httpsAgent,
   });
-  return response.data;
+  return response.data as GetRollingWindowPriceChangeStatsResponse;
 }
 
 const market = {
