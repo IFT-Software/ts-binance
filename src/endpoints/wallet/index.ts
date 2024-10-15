@@ -151,7 +151,7 @@ type WithdrawFundParams = {
   network?: string;
   address: string;
   addressTag?: string;
-  amount: number;
+  amount: string;
   transactionFeeFlag?: boolean;
   name?: string;
   walletType?: number;
@@ -241,7 +241,7 @@ async function getWithdrawHistory(
 type GetDepositAddressParams = {
   coin: string;
   network?: string;
-  amount?: number;
+  amount?: string;
   recvWindow?: number;
   timestamp: number;
 };
@@ -463,7 +463,7 @@ async function getTradeFee(
 type UserUniversalTransferParams = {
   type: string;
   asset: string;
-  amount: number;
+  amount: string;
   fromSymbol?: string;
   toSymbol?: string;
   recvWindow?: number;
@@ -571,7 +571,7 @@ async function getUserAsset(
 type ConvertBusdParams = {
   clientTranId: string;
   asset: string;
-  amount: number;
+  amount: string;
   targetAsset: string;
   accountType?: "MAIN" | "CARD";
 };
