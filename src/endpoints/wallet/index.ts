@@ -55,7 +55,7 @@ async function getSystemStatus(
 
 type GetAllCoinsInfoParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAllCoinsInfo(
@@ -66,6 +66,8 @@ async function getAllCoinsInfo(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/capital/config/getall", {
     params,
@@ -82,7 +84,7 @@ type GetAccountSnapshotParams = {
   endTime?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAccountSnapshot(
@@ -93,6 +95,8 @@ async function getAccountSnapshot(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/accountSnapshot", {
     params,
@@ -105,7 +109,7 @@ async function getAccountSnapshot(
 
 type DisableFastWithdrawSwitchParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function disableFastWithdrawSwitch(
@@ -117,6 +121,8 @@ async function disableFastWithdrawSwitch(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   await binanceApi.post("/sapi/v1/account/disableFastWithdrawSwitch", {
     params,
     authentication,
@@ -126,7 +132,7 @@ async function disableFastWithdrawSwitch(
 
 type EnableFastWithdrawSwitchParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function enableFastWithdrawSwitch(
@@ -137,6 +143,8 @@ async function enableFastWithdrawSwitch(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   await binanceApi.post("/sapi/v1/account/enableFastWithdrawSwitch", {
     params,
@@ -156,7 +164,7 @@ type WithdrawFundParams = {
   name?: string;
   walletType?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function withdrawFund(
@@ -167,6 +175,8 @@ async function withdrawFund(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/capital/withdraw/apply", {
     params,
@@ -186,7 +196,7 @@ type GetDepositHistoryParams = {
   offset?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
   txId?: string;
 };
 
@@ -198,6 +208,8 @@ async function getDepositHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/capital/deposit/hisrec", {
     params,
@@ -217,7 +229,7 @@ type GetWithdrawHistoryParams = {
   startTime?: number;
   endTime?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getWithdrawHistory(
@@ -228,6 +240,8 @@ async function getWithdrawHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/capital/withdraw/history", {
     params,
@@ -243,7 +257,7 @@ type GetDepositAddressParams = {
   network?: string;
   amount?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getDepositAddress(
@@ -254,6 +268,8 @@ async function getDepositAddress(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/capital/deposit/address", {
     params,
@@ -266,7 +282,7 @@ async function getDepositAddress(
 
 type GetAccountStatusParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAccountStatus(
@@ -277,6 +293,8 @@ async function getAccountStatus(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/account/status", {
     params,
@@ -289,7 +307,7 @@ async function getAccountStatus(
 
 type GetAccountApiTradingStatusParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAccountApiTradingStatus(
@@ -300,6 +318,8 @@ async function getAccountApiTradingStatus(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/account/apiTradingStatus", {
     params,
@@ -315,7 +335,7 @@ type GetDustLogParams = {
   startTime?: number;
   endTime?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getDustLog(
@@ -326,6 +346,8 @@ async function getDustLog(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/dribblet", {
     params,
@@ -339,7 +361,7 @@ async function getDustLog(
 type GetBnbConvertableAssetsParams = {
   accountType?: "SPOT" | "MARGIN";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getBnbConvertableAssets(
@@ -350,6 +372,8 @@ async function getBnbConvertableAssets(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/dust-btc", {
     params,
@@ -364,7 +388,7 @@ type DustTransferParams = {
   asset: string;
   accountType?: "SPOT" | "MARGIN";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function dustTransfer(
@@ -375,6 +399,8 @@ async function dustTransfer(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/asset/dust", {
     params,
@@ -391,7 +417,7 @@ type GetAssetDividendRecordParams = {
   endTime?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAssetDividendRecord(
@@ -402,6 +428,8 @@ async function getAssetDividendRecord(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/assetDividend", {
     params,
@@ -415,7 +443,7 @@ async function getAssetDividendRecord(
 type GetAssetDetailParams = {
   asset?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAssetDetail(
@@ -426,6 +454,8 @@ async function getAssetDetail(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/assetDetail", {
     params,
@@ -439,7 +469,7 @@ async function getAssetDetail(
 type GetTradeFeeParams = {
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getTradeFee(
@@ -450,6 +480,8 @@ async function getTradeFee(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/tradeFee", {
     params,
@@ -467,7 +499,7 @@ type UserUniversalTransferParams = {
   fromSymbol?: string;
   toSymbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function userUniversalTransfer(
@@ -478,6 +510,8 @@ async function userUniversalTransfer(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/asset/transfer", {
     params,
@@ -497,7 +531,7 @@ type GetUserUniversalTransferHistoryParams = {
   fromSymbol?: string;
   toSymbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getUserUniversalTransferHistory(
@@ -508,6 +542,8 @@ async function getUserUniversalTransferHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/transfer", {
     params,
@@ -522,7 +558,7 @@ type GetFundingWalletParams = {
   asset?: string;
   needBtcValuation?: "TRUE" | "FALSE";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getFundingWallet(
@@ -533,6 +569,8 @@ async function getFundingWallet(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/asset/get-funding-asset", {
     params,
@@ -547,7 +585,7 @@ type GetUserAssetParams = {
   asset?: string;
   needBtcValuation?: "TRUE" | "FALSE";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getUserAsset(
@@ -558,6 +596,8 @@ async function getUserAsset(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v3/asset/getUserAsset", {
     params,
@@ -574,6 +614,8 @@ type ConvertBusdParams = {
   amount: string;
   targetAsset: string;
   accountType?: "MAIN" | "CARD";
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function convertBusd(
@@ -584,6 +626,8 @@ async function convertBusd(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/asset/convert-transfer", {
     params,
@@ -603,6 +647,8 @@ type GetConvertBusdHistoryParams = {
   accountType?: "MAIN" | "CARD";
   current?: number;
   size?: number;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getConvertBusdHistory(
@@ -613,6 +659,8 @@ async function getConvertBusdHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/asset/convert-transfer/queryByPage",
@@ -634,6 +682,8 @@ type GetCloudMiningTransactionHistoryParams = {
   endTime: number;
   current?: number;
   size?: number;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getCloudMiningTransactionHistory(
@@ -644,6 +694,8 @@ async function getCloudMiningTransactionHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/asset/ledger-transfer/cloud-mining/queryByPage",
@@ -659,7 +711,7 @@ async function getCloudMiningTransactionHistory(
 
 type GetApiKeyPermissionsParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getApiKeyPermissions(
@@ -670,6 +722,8 @@ async function getApiKeyPermissions(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/account/apiRestrictions", {
     params,
@@ -702,6 +756,8 @@ async function getConvertableStableCoins(
 type SwitchStableCoinConversionParams = {
   coin: string;
   enable: "true" | "false";
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function switchStableCoinConversion(
@@ -712,6 +768,8 @@ async function switchStableCoinConversion(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   await binanceApi.post("/sapi/v1/capital/contract/convertible-coins", {
     params,
@@ -725,6 +783,8 @@ type ApplyOneClickArrivalDepositParams = {
   txId?: string;
   subAccountId?: number;
   subUserId?: number;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function applyOneClickArrivalDeposit(
@@ -735,6 +795,8 @@ async function applyOneClickArrivalDeposit(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post(
     "/sapi/v1/capital/deposit/credit-apply",
@@ -751,7 +813,8 @@ async function applyOneClickArrivalDeposit(
 type GetDepositAddressListParams = {
   coin: string;
   network?: string;
-  timestamp: number;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getDepositAddressList(
@@ -762,6 +825,8 @@ async function getDepositAddressList(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/capital/deposit/address/list",
@@ -777,7 +842,7 @@ async function getDepositAddressList(
 
 type GetUserWalletBalanceParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getUserWalletBalance(
@@ -788,6 +853,8 @@ async function getUserWalletBalance(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/asset/wallet/balance", {
     params,
@@ -807,7 +874,7 @@ type GetMasterAccountUserDelegationHistoryParams = {
   current?: number;
   size?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMasterAccountUserDelegationHistory(
@@ -818,6 +885,8 @@ async function getMasterAccountUserDelegationHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/asset/custody/transfer-history",
@@ -833,7 +902,7 @@ async function getMasterAccountUserDelegationHistory(
 
 type GetSpotSymbolsDelistScheduleParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getSpotSymbolsDelistSchedule(
@@ -844,6 +913,8 @@ async function getSpotSymbolsDelistSchedule(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/spot/delist-schedule", {
     params,
@@ -875,7 +946,7 @@ async function getWithdrawAddressList(
 
 type GetAccountInfoParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAccountInfo(
@@ -886,6 +957,8 @@ async function getAccountInfo(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/account/info", {
     params,

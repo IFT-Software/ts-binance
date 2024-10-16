@@ -58,7 +58,7 @@ type MarginBorrowRepayParams = {
   amount: number;
   type: "BORROW" | "REPAY";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function marginBorrowRepay(
@@ -69,6 +69,8 @@ async function marginBorrowRepay(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/margin/borrow-repay", {
     params,
@@ -88,7 +90,7 @@ type MarginBorrowRepayRecordsParams = {
   size?: number;
   type: "BORROW" | "REPAY";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginBorrowRepayRecords(
@@ -100,6 +102,8 @@ async function getMarginBorrowRepayRecords(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.get("/sapi/v1/margin/borrow-repay", {
     params,
     authentication,
@@ -110,6 +114,8 @@ async function getMarginBorrowRepayRecords(
 
 type AllMarginAssetsParams = {
   asset?: string;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getAllMarginAssets(
@@ -121,6 +127,8 @@ async function getAllMarginAssets(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.get("/sapi/v1/margin/allAssets", {
     params,
     authentication,
@@ -131,6 +139,8 @@ async function getAllMarginAssets(
 
 type AllCrossMarginPairsParams = {
   symbol?: string;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getAllCrossMarginPairs(
@@ -141,6 +151,8 @@ async function getAllCrossMarginPairs(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/allPairs", {
     params,
@@ -153,6 +165,8 @@ async function getAllCrossMarginPairs(
 
 type MarginPriceIndexParams = {
   symbol: string;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getMarginPriceIndex(
@@ -163,6 +177,8 @@ async function getMarginPriceIndex(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/priceIndex", {
     params,
@@ -190,7 +206,7 @@ type CreateMarginOrderParams = {
   selfTradePrevention?: string; // TODO: this should be an enum
   autoRepayAtCancel?: boolean;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function createMarginOrder(
@@ -201,6 +217,8 @@ async function createMarginOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/margin/order", {
     params,
@@ -217,7 +235,7 @@ type CancelMarginOrderParams = {
   origClientOrderId?: string;
   newClientOrderId?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function cancelMarginOrder(
@@ -228,6 +246,8 @@ async function cancelMarginOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.delete("/sapi/v1/margin/order", {
     params,
@@ -242,7 +262,7 @@ type CancelAllMarginOrdersParams = {
   symbol: string;
   isIsolated?: "TRUE" | "FALSE";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function cancelAllMarginOrders(
@@ -253,6 +273,8 @@ async function cancelAllMarginOrders(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.delete("/sapi/v1/margin/openOrders", {
     params,
@@ -265,6 +287,8 @@ async function cancelAllMarginOrders(
 
 type AdjustCrossMarginLeverageParams = {
   maxLeverage: number;
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function adjustCrossMarginLeverage(
@@ -275,6 +299,8 @@ async function adjustCrossMarginLeverage(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/margin/max-leverage", {
     params,
@@ -294,7 +320,7 @@ type MarginTransferHistoryParams = {
   size?: number;
   isolatedSymbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 // TODO: test this function to understand whether is it only for cross margin or not
@@ -306,6 +332,8 @@ async function getMarginTransferHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/transfer", {
     params,
@@ -324,7 +352,7 @@ type GetMarginInterestHistoryParams = {
   current?: number;
   size?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginInterestHistory(
@@ -335,6 +363,8 @@ async function getMarginInterestHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/interestHistory", {
     params,
@@ -351,7 +381,7 @@ type GetMarginForceLiquidationRecordParams = {
   current?: number;
   size?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginForceLiquidationRecord(
@@ -363,6 +393,8 @@ async function getMarginForceLiquidationRecord(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.get("/sapi/v1/margin/forceLiquidationRec", {
     params,
     authentication,
@@ -373,7 +405,7 @@ async function getMarginForceLiquidationRecord(
 
 type GetCrossMarginAccountDetailsParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getCrossMarginAccountDetails(
@@ -384,6 +416,8 @@ async function getCrossMarginAccountDetails(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/account", {
     params,
@@ -399,7 +433,7 @@ type GetMarginOrderParams = {
   orderId?: number;
   origClientOrderId?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginOrder(
@@ -410,6 +444,8 @@ async function getMarginOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/order", {
     params,
@@ -423,7 +459,7 @@ type GetMarginOpenOrdersParams = {
   symbol?: string;
   isIsolated?: "TRUE" | "FALSE";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginOpenOrders(
@@ -434,6 +470,8 @@ async function getMarginOpenOrders(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/openOrders", {
     params,
@@ -451,7 +489,7 @@ type GetMarginAllOrdersParams = {
   endTime?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginAllOrders(
@@ -462,6 +500,8 @@ async function getMarginAllOrders(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/allOrders", {
     params,
@@ -490,7 +530,7 @@ type CreateMarginOcoOrderParams = {
   selfTradePreventionMode?: string;
   autoRepayAtCancel?: boolean;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function createMarginOcoOrder(
@@ -501,6 +541,8 @@ async function createMarginOcoOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/margin/order/oco", {
     params,
@@ -517,7 +559,7 @@ type CancelMarginOcoOrderParams = {
   listClientOrderId?: string;
   newClientOrderId?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function cancelMarginOcoOrder(
@@ -528,6 +570,8 @@ async function cancelMarginOcoOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.delete("/sapi/v1/margin/orderList", {
     params,
@@ -543,7 +587,7 @@ type GetMarginOcoOrderParams = {
   orderListId?: number;
   origClientOrderId?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginOcoOrder(
@@ -554,6 +598,8 @@ async function getMarginOcoOrder(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/orderList", {
     params,
@@ -571,7 +617,7 @@ type GetMarginAllOcoOrdersParams = {
   endTime?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginAllOcoOrders(
@@ -582,6 +628,8 @@ async function getMarginAllOcoOrders(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/allOrderList", {
     params,
@@ -595,7 +643,7 @@ type GetMarginOpenOcoOrdersParams = {
   isIsolated?: "TRUE" | "FALSE";
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginOpenOcoOrders(
@@ -606,6 +654,8 @@ async function getMarginOpenOcoOrders(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/openOrderList", {
     params,
@@ -624,7 +674,7 @@ type GetMarginAccountTradeListParams = {
   fromId?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginAccountTradeList(
@@ -635,6 +685,8 @@ async function getMarginAccountTradeList(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/myTrades", {
     params,
@@ -648,7 +700,7 @@ type GetMarginMaxBorrowableParams = {
   asset: string;
   isolatedSymbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginMaxBorrowable(
@@ -659,6 +711,8 @@ async function getMarginMaxBorrowable(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/maxBorrowable", {
     params,
@@ -672,7 +726,7 @@ type GetMarginMaxTransferableParams = {
   asset: string;
   isolatedSymbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginMaxTransferable(
@@ -684,6 +738,8 @@ async function getMarginMaxTransferable(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.get("/sapi/v1/margin/maxTransferable", {
     params,
     authentication,
@@ -694,7 +750,7 @@ async function getMarginMaxTransferable(
 
 type GetMarginAccountSummaryParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginAccountSummary(
@@ -705,6 +761,8 @@ async function getMarginAccountSummary(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/tradeCoeff", {
     params,
@@ -717,7 +775,7 @@ async function getMarginAccountSummary(
 type GetIsolatedMarginAccountInfoParams = {
   symbols?: Array<string>;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getIsolatedMarginAccountInfo(
@@ -728,6 +786,8 @@ async function getIsolatedMarginAccountInfo(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/isolated/account", {
     params,
@@ -740,7 +800,7 @@ async function getIsolatedMarginAccountInfo(
 type DisableIsolatedMarginAccountParams = {
   symbol: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function disableIsolatedMarginAccount(
@@ -751,6 +811,8 @@ async function disableIsolatedMarginAccount(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.delete("/sapi/v1/margin/isolated/account", {
     params,
@@ -763,7 +825,7 @@ async function disableIsolatedMarginAccount(
 type EnableIsolatedMarginAccountParams = {
   symbol: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function enableIsolatedMarginAccount(
@@ -775,6 +837,8 @@ async function enableIsolatedMarginAccount(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.post("/sapi/v1/margin/isolated/account", {
     params,
     authentication,
@@ -785,7 +849,7 @@ async function enableIsolatedMarginAccount(
 
 type GetIsolatedMarginAccountLimitParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getIsolatedMarginAccountLimit(
@@ -796,6 +860,8 @@ async function getIsolatedMarginAccountLimit(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/margin/isolated/accountLimit",
@@ -811,7 +877,7 @@ async function getIsolatedMarginAccountLimit(
 type GetAllIsolatedMarginSymbolParams = {
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getAllIsolatedMarginSymbol(
@@ -822,6 +888,8 @@ async function getAllIsolatedMarginSymbol(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/isolated/allPairs", {
     params,
@@ -835,7 +903,7 @@ type ToggleBnbBurnStatusParams = {
   spotBNBBurn?: boolean;
   interestBNBBurn?: boolean;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function toggleBnbBurnStatus(
@@ -847,6 +915,8 @@ async function toggleBnbBurnStatus(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.post("/sapi/v1/bnbBurn", {
     params,
     authentication,
@@ -857,7 +927,7 @@ async function toggleBnbBurnStatus(
 
 type GetBnbBurnStatusParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getBnbBurnStatus(
@@ -868,6 +938,8 @@ async function getBnbBurnStatus(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/bnbBurn", {
     params,
@@ -883,7 +955,7 @@ type GetMarginInterestRateHistoryParams = {
   startTime?: number;
   endTime?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginInterestRateHistory(
@@ -894,6 +966,8 @@ async function getMarginInterestRateHistory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/interestRateHistory", {
     params,
@@ -907,7 +981,7 @@ type GetCrossMarginFeeDataParams = {
   vipLevel?: number;
   coin?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getCrossMarginFeeData(
@@ -918,6 +992,8 @@ async function getCrossMarginFeeData(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/crossMarginData", {
     params,
@@ -931,7 +1007,7 @@ type GetIsolatedMarginFeeDataParams = {
   vipLevel?: number;
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getIsolatedMarginFeeData(
@@ -942,6 +1018,8 @@ async function getIsolatedMarginFeeData(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/isolatedMarginData", {
     params,
@@ -955,7 +1033,7 @@ type GetIsolatedMarginTierDataParams = {
   symbol: string;
   tier?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getIsolatedMarginTierData(
@@ -966,6 +1044,8 @@ async function getIsolatedMarginTierData(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/isolatedMarginTier", {
     params,
@@ -979,7 +1059,7 @@ type GetCurrentMarginOrderCountParams = {
   isIsolated?: "TRUE" | "FALSE";
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getCurrentMarginOrderCount(
@@ -990,6 +1070,8 @@ async function getCurrentMarginOrderCount(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/rateLimit/order", {
     params,
@@ -1019,7 +1101,7 @@ async function getCrossMarginCollateralRatio(
 
 type GetSmallLiabilityExchangeCoinListParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getSmallLiabilityExchangeCoinList(
@@ -1030,6 +1112,8 @@ async function getSmallLiabilityExchangeCoinList(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/margin/exchange-small-liability",
@@ -1045,6 +1129,8 @@ async function getSmallLiabilityExchangeCoinList(
 type GetNextHourlyInterestRateParams = {
   assets: string;
   isIsolated?: "TRUE" | "FALSE"; // TODO: In documentation it is written as "TRUE" | "FALSE" but type shown as boolean test it
+  recvWindow?: number;
+  timestamp?: number;
 };
 
 async function getNextHourlyInterestRate(
@@ -1055,6 +1141,8 @@ async function getNextHourlyInterestRate(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get(
     "/sapi/v1/margin/next-hourly-interest-rate",
@@ -1076,7 +1164,7 @@ type GetMarginCapitalFlowParams = {
   fromId?: number;
   limit?: number;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginCapitalFlow(
@@ -1088,6 +1176,8 @@ async function getMarginCapitalFlow(
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
 
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
+
   const response = await binanceApi.get("/sapi/v1/margin/capital-flow", {
     params,
     authentication,
@@ -1098,7 +1188,7 @@ async function getMarginCapitalFlow(
 
 type GetMarginDelistScheduleParams = {
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginDelistSchedule(
@@ -1109,6 +1199,8 @@ async function getMarginDelistSchedule(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/delist-schedule", {
     params,
@@ -1121,7 +1213,7 @@ async function getMarginDelistSchedule(
 type GetMarginAvailableInventoryParams = {
   type: "MARGIN" | "ISOLATED";
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function getMarginAvailableInventory(
@@ -1132,6 +1224,8 @@ async function getMarginAvailableInventory(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.get("/sapi/v1/margin/available-inventory", {
     params,
@@ -1145,7 +1239,7 @@ type LiquidateMarginSymbolManuallyParams = {
   type: "MARGIN" | "ISOLATED";
   symbol?: string;
   recvWindow?: number;
-  timestamp: number;
+  timestamp?: number;
 };
 
 async function liquidateMarginSymbolManually(
@@ -1156,6 +1250,8 @@ async function liquidateMarginSymbolManually(
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
+
+  if (!params.timestamp) params = { ...params, timestamp: Date.now() };
 
   const response = await binanceApi.post("/sapi/v1/margin/manual-liquidation", {
     params,
