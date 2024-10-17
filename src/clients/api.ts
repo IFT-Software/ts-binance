@@ -58,6 +58,12 @@ const generateRSASignature = (
 // Request interceptor: convert params to query string and generate signature based on the keys provided
 binanceApi.interceptors.request.use(
   (config) => {
+    if (config.data) {
+      const { ...rest } = config.data;
+      config.data = undefined;
+      config = { ...config, ...rest };
+    }
+
     if (config.params) {
       // Convert params to query string
       const queryString = generateQueryString(config.params);
