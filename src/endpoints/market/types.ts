@@ -173,15 +173,12 @@ export type GetTradingDayTickerResponse =
   | TradingDayMiniTickerInfo
   | TradingDayMiniTickerInfo[];
 
-export type GetSymbolPriceTickerResponse =
-  | {
-      symbol: string;
-      price: string;
-    }
-  | {
-      symbol: string;
-      price: string;
-    }[];
+type GetSymbolPriceTickerResponseSingle = { symbol: string; price: string };
+type GetSymbolPriceTickerResponseArray = { symbol: string; price: string }[];
+
+export type GetSymbolPriceTickerResponse<T> = T extends { symbol: string }
+  ? GetSymbolPriceTickerResponseSingle
+  : GetSymbolPriceTickerResponseArray;
 
 type OrderBookOrder = {
   symbol: string;

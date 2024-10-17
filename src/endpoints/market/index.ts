@@ -264,10 +264,10 @@ type GetSymbolPriceTickerParams = {
 };
 
 // Get Symbol Price Ticker
-async function getSymbolPriceTicker(
-  params?: GetSymbolPriceTickerParams,
+async function getSymbolPriceTicker<T extends GetSymbolPriceTickerParams>(
+  params: T,
   proxy?: URL | string
-) {
+): Promise<GetSymbolPriceTickerResponse<T>> {
   const httpsAgent = proxy
     ? new HttpsProxyAgent({ proxy, timeout: 5000 })
     : undefined;
@@ -276,7 +276,7 @@ async function getSymbolPriceTicker(
     params,
     httpsAgent,
   });
-  return response.data as GetSymbolPriceTickerResponse;
+  return response.data as GetSymbolPriceTickerResponse<T>;
 }
 
 type GetSymbolOrderBookTickerParams = {
